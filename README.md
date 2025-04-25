@@ -1,8 +1,8 @@
-# CLaI — Your AI-Powered Terminal Assistant
+# BAiSH — Your AI-Powered Terminal Assistant
 
-CLaI is a terminal tool that turns plain English into shell commands using OpenRouter-powered LLMs like GPT-4, Mistral, Claude, and others.
+BAiSH is a terminal tool that turns plain English into shell commands using OpenRouter-powered LLMs like GPT-4, Mistral, Claude, and others.
 
-No more Googling for syntax or stackoverflow diving. Just ask, and CLaI will suggest the right command — with options to preview, explain, and save as aliases.
+No more Googling for syntax or stackoverflow diving. Just ask, and BAiSH will suggest the right command — with options to preview, explain, and save as aliases.
 
 ---
 
@@ -11,7 +11,7 @@ No more Googling for syntax or stackoverflow diving. Just ask, and CLaI will sug
 - Converts natural language to terminal commands
 - Supports `--explain` mode for breakdowns
 - `--dry` run mode to preview before execution
-- Alias system (`clai alias deploy 'git push'`)
+- Alias system (`baish alias deploy 'git push'`)
 - Persistent config (API key + default model)
 - One-time `--key` and `--model` overrides
 - Built on Node.js + OpenRouter + your preferred LLM
@@ -21,34 +21,34 @@ No more Googling for syntax or stackoverflow diving. Just ask, and CLaI will sug
 ## Installation
 
 ```bash
-npm install -g clai
+npm install -g baish
 ```
 
 Or run directly (future):
 ```bash
-npx clai "show hidden files"
+npx baish "show hidden files"
 ```
 
 ---
 
 ## First Run Setup
 
-CLaI will prompt for your **OpenRouter API key** on first run and save it securely in `~/.clai/config.json`.
+BAiSH will prompt for your **OpenRouter API key** on first run and save it securely in `~/.baish/config.json`.
 
 ---
 
 ## Usage
 
 ```bash
-clai "make all .sh files executable"
+baish "make all .sh files executable"
 ```
 
 ```bash
-clai "remove all node_modules folders" --dry
+baish "remove all node_modules folders" --dry
 ```
 
 ```bash
-clai "chmod file" --explain
+baish "chmod file" --explain
 ```
 
 ---
@@ -56,8 +56,8 @@ clai "chmod file" --explain
 ##  Config
 
 ```bash
-clai config model gpt-4
-clai reset
+baish config model gpt-4
+baish reset
 ```
 
 ---
@@ -65,8 +65,8 @@ clai reset
 ##  Aliases
 
 ```bash
-clai alias deploy "git push origin main"
-clai deploy
+baish alias deploy "git push origin main"
+baish deploy
 ```
 
 ---
@@ -85,7 +85,7 @@ clai deploy
 ##  Help
 
 ```bash
-clai help
+baish help
 ```
 
 ---

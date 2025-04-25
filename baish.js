@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 import { exec } from 'child_process';
 import readline from 'readline';
@@ -76,7 +77,7 @@ if (args.includes('--explain')) {
 
 const input = args.join(' ');
 if (!input) {
-  console.log("Usage: clai 'do something' [--dry] [--explain] [--model <name>] [--key <key>]\nRun 'clai help' for more.");
+  console.log("Usage: baish 'do something' [--dry] [--explain] [--model <name>] [--key <key>]\nRun 'baish help' for more.");
   process.exit();
 }
 

@@ -1,18 +1,18 @@
 {
-  "name": "clai",
+  "name": "baish",
   "version": "1.0.2",
   "description": "AI powered CLI. One command to remember all commands.",
-  "main": "clai.js",
+  "main": "baish.js",
   "type": "module",
   "bin": {
-    "clai": "./clai.js"
+    "baish": "./baish.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/silv3rh4t/clai.git"
+    "url": "git+https://github.com/silv3rh4t/baish.git"
   },
   "keywords": [
     "ai",
@@ -24,9 +24,9 @@
   "author": "silv3rh4t",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/silv3rh4t/clai/issues"
+    "url": "https://github.com/silv3rh4t/baish/issues"
   },
-  "homepage": "https://github.com/silv3rh4t/clai#readme",
+  "homepage": "https://github.com/silv3rh4t/baish#readme",
   "dependencies": {
     "node-fetch": "^3.3.2"
   }

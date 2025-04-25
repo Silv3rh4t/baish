@@ -4,7 +4,7 @@ import os from 'os';
 import path from 'path';
 import readline from 'readline';
 
-const configPath = path.join(os.homedir(), '.clai', 'config.json');
+const configPath = path.join(os.homedir(), '.baish', 'config.json');
 
 function loadConfig() {
   if (fs.existsSync(configPath)) {
@@ -32,7 +32,7 @@ export async function getApiKey(cliKey = null) {
   config.MODEL = config.MODEL || "meta-llama/llama-3.3-70b-instruct:free";
   saveConfig(config);
 
-  console.log("✅ API key saved to ~/.clai/config.json\n");
+  console.log("✅ API key saved to ~/.baish/config.json\n");
   return key;
 }
 
@@ -51,7 +51,7 @@ export function setDefaultModel(newModel) {
 export function resetConfig() {
   if (fs.existsSync(configPath)) {
     fs.unlinkSync(configPath);
-    console.log("🧹 Config reset: ~/.clai/config.json removed.");
+    console.log("🧹 Config reset: ~/.baish/config.json removed.");
   } else {
     console.log("No config file found to delete.");
   }
