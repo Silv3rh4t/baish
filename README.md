@@ -1,8 +1,8 @@
-# Clai — Your AI-Powered Terminal Assistant
+# CLaI — Your AI-Powered Terminal Assistant
 
-Clai (short for **Command Line AI**) is a terminal tool that turns plain English into shell commands using OpenRouter-powered LLMs like GPT-4, Mistral, Claude, and others.
+CLaI is a terminal tool that turns plain English into shell commands using OpenRouter-powered LLMs like GPT-4, Mistral, Claude, and others.
 
-No more Googling for syntax or stackoverflow diving. Just ask, and Clai will suggest the right command — with options to preview, explain, and save as aliases.
+No more Googling for syntax or stackoverflow diving. Just ask, and CLaI will suggest the right command — with options to preview, explain, and save as aliases.
 
 ---
 
@@ -33,7 +33,7 @@ npx clai "show hidden files"
 
 ## 🔑 First Run Setup
 
-Clai will prompt for your **OpenRouter API key** on first run and save it securely in `~/.clai/config.json`.
+CLaI will prompt for your **OpenRouter API key** on first run and save it securely in `~/.clai/config.json`.
 
 ---
 
