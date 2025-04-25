@@ -6,7 +6,7 @@ export async function generateCommand(userInput, overrideKey = null, modelName =
   const selectedModel = modelName || getDefaultModel();
 
   const prompt = `
-You are a Linux command-line expert. Convert the following natural language request into a safe and accurate shell command. Return ONLY the shell command — no explanation.
+You are a Linux command-line expert. Convert the following natural language request into a single safe and accurate shell command. You are running this command in the terminal. Do not add any additional commands or explanations.
 
 Request: ${userInput}
   `.trim();
@@ -43,9 +43,9 @@ Request: ${userInput}
     console.error(`❌ Failed to get response from model "${selectedModel}"`);
     console.error(`→ ${err.message}`);
 
-    if (selectedModel !== 'mistralai/mistral-7b-instruct') {
-      console.log('⚠️ Falling back to default model: mistralai/mistral-7b-instruct\n');
-      return await generateCommand(userInput, overrideKey, 'mistralai/mistral-7b-instruct');
+    if (selectedModel !== 'meta-llama/llama-3.3-70b-instruct:free') {
+      console.log('⚠️ Falling back to default model: meta-llama/llama-3.3-70b-instruct:free\n');
+      return await generateCommand(userInput, overrideKey, 'meta-llama/llama-3.3-70b-instruct:free');
     } else {
       return 'echo "Unable to generate command. Check API key or model."';
     }

@@ -29,7 +29,7 @@ export async function getApiKey(cliKey = null) {
   rl.close();
 
   config.OPENROUTER_API_KEY = key;
-  config.MODEL = config.MODEL || "mistralai/mistral-7b-instruct";
+  config.MODEL = config.MODEL || "meta-llama/llama-3.3-70b-instruct:free";
   saveConfig(config);
 
   console.log("✅ API key saved to ~/.clai/config.json\n");
@@ -38,7 +38,7 @@ export async function getApiKey(cliKey = null) {
 
 export function getDefaultModel() {
   const config = loadConfig();
-  return config.MODEL || "mistralai/mistral-7b-instruct";
+  return config.MODEL || "meta-llama/llama-3.3-70b-instruct:free";
 }
 
 export function setDefaultModel(newModel) {
