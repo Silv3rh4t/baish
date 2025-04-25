@@ -1,0 +1,31 @@
+{
+  "name": "clai",
+  "version": "1.0.0",
+  "description": "AI powered CLI. One command to remember all commands.",
+  "main": "clai.js",
+  "type": "module",
+  "bin": {
+    "clai": "./clai.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silv3rh4t/clai.git"
+  },
+  "keywords": [
+    "ai",
+    "cli"
+  ],
+  "author": "silv3rh4t",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/silv3rh4t/clai/issues"
+  },
+  "homepage": "https://github.com/silv3rh4t/clai#readme",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "node-fetch": "^3.3.2"
+  }
+}
