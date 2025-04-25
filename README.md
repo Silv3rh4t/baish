@@ -1,6 +1,6 @@
 # BAiSH — Your AI-Powered Terminal Assistant
 
-BAiSH is a terminal tool that turns plain English into shell commands using OpenRouter-powered LLMs like GPT-4, Mistral, Claude, and others.
+BAiSH (AI in bash) is a terminal tool that turns plain English into shell commands using OpenRouter-powered LLMs like GPT-4, Mistral, Claude, and others.
 
 No more Googling for syntax or stackoverflow diving. Just ask, and BAiSH will suggest the right command — with options to preview, explain, and save as aliases.
 
