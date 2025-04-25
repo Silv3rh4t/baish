@@ -1,7 +1,7 @@
 {
   "name": "baish",
   "version": "1.0.2",
-  "description": "AI powered CLI. One command to remember all commands.",
+  "description": "AI powered bash. One command to remember all commands.",
   "main": "baish.js",
   "type": "module",
   "bin": {
@@ -19,7 +19,8 @@
     "cli",
     "shell",
     "gpt",
-    "openrouter"
+    "openrouter",
+    "bash"
   ],
   "author": "silv3rh4t",
   "license": "MIT",
