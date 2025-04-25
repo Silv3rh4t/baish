@@ -1,29 +1,53 @@
-import { getApiKey } from './clai.js'; // Or move to a shared util
+import fetch from 'node-fetch';
+import { getApiKey, getDefaultModel } from './config.js';
 
-export async function generateCommand(userInput) {
-  const apiKey = await getApiKey();
+export async function generateCommand(userInput, overrideKey = null, modelName = null) {
+  const apiKey = await getApiKey(overrideKey);
+  const selectedModel = modelName || getDefaultModel();
 
   const prompt = `
-You are an expert command-line assistant. Convert the following natural language request into a safe and accurate Linux terminal command. Return only the command and nothing else.
+You are a Linux command-line expert. Convert the following natural language request into a safe and accurate shell command. Return ONLY the shell command — no explanation.
 
 Request: ${userInput}
-`;
+  `.trim();
 
-  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      model: 'mistralai/mistral-7b-instruct',
-      messages: [
-        { role: 'system', content: 'You are a Linux command generator.' },
-        { role: 'user', content: prompt }
-      ]
-    })
-  });
+  let response;
 
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content.trim() || 'echo "No output."';
+  try {
+    response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: selectedModel,
+        messages: [
+          { role: 'system', content: 'You are a helpful Linux command assistant.' },
+          { role: 'user', content: prompt }
+        ]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // Handle empty/malformed response
+    const output = data.choices?.[0]?.message?.content?.trim();
+    return output || 'echo "No command returned by model."';
+
+  } catch (err) {
+    console.error(`❌ Failed to get response from model "${selectedModel}"`);
+    console.error(`→ ${err.message}`);
+
+    if (selectedModel !== 'mistralai/mistral-7b-instruct') {
+      console.log('⚠️ Falling back to default model: mistralai/mistral-7b-instruct\n');
+      return await generateCommand(userInput, overrideKey, 'mistralai/mistral-7b-instruct');
+    } else {
+      return 'echo "Unable to generate command. Check API key or model."';
+    }
+  }
 }

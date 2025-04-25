@@ -1,53 +1,58 @@
-#!/usr/bin/env node
-import fs from 'fs';
-import os from 'os';
-import path from 'path';
+import { exec } from 'child_process';
 import readline from 'readline';
 import { generateCommand } from './ai.js';
-import { exec } from 'child_process';
+import { getApiKey, resetConfig, getDefaultModel, setDefaultModel } from './config.js';
 
-const configPath = path.join(os.homedir(), '.clai', 'config.json');
+const args = process.argv.slice(2);
 
-export async function getApiKey() {
-  if (fs.existsSync(configPath)) {
-    const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-    return config.OPENROUTER_API_KEY;
-  }
-
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-
-  const ask = (q) => new Promise((res) => rl.question(q, res));
-  const key = await ask("Enter your OpenRouter API key: ");
-  rl.close();
-
-  fs.mkdirSync(path.dirname(configPath), { recursive: true });
-  fs.writeFileSync(configPath, JSON.stringify({ OPENROUTER_API_KEY: key }));
-
-  console.log("✅ API key saved to ~/.clai/config.json\n");
-  return key;
+// RESET
+if (args.includes('reset')) {
+  resetConfig();
+  process.exit();
 }
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+// SET DEFAULT MODEL: clai config model gpt-4
+if (args[0] === 'config' && args[1] === 'model' && args[2]) {
+  setDefaultModel(args[2]);
+  process.exit();
+}
 
+// --key + --model
+let keyFromArg = null;
+let modelFromArg = null;
+
+const keyIndex = args.indexOf('--key');
+if (keyIndex !== -1 && args[keyIndex + 1]) {
+  keyFromArg = args[keyIndex + 1];
+  args.splice(keyIndex, 2);
+}
+
+const modelIndex = args.indexOf('--model');
+if (modelIndex !== -1 && args[modelIndex + 1]) {
+  modelFromArg = args[modelIndex + 1];
+  args.splice(modelIndex, 2);
+}
+
+const input = args.join(' ');
+if (!input) {
+  console.log("Usage: clai 'do something' [--model gpt-4] [--key sk-...]");
+  console.log("       clai config model mistralai/mistral-7b-instruct");
+  console.log("       clai reset\n");
+  process.exit();
+}
+
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 const ask = (q) => new Promise((res) => rl.question(q, res));
 
 async function main() {
-  const input = process.argv.slice(2).join(' ');
-  if (!input) {
-    console.log("Usage: clai 'describe what you want to do'");
-    rl.close();
-    return;
-  }
+  const selectedModel = modelFromArg || getDefaultModel();
+  const command = await generateCommand(input, keyFromArg, selectedModel);
 
-  const command = await generateCommand(input);
-  console.log(`\n> Suggested command:\n\n  ${command}\n`);
+  console.log(`\n> Model: ${selectedModel}`);
+  console.log(`> Suggested command:\n\n  ${command}\n`);
+
   const confirm = await ask("Run it? (Y/n): ");
+  rl.close();
 
   if (confirm.toLowerCase() === 'y' || confirm === '') {
     exec(command, (err, stdout, stderr) => {
@@ -56,11 +61,9 @@ async function main() {
       } else {
         console.log(stdout);
       }
-      rl.close();
     });
   } else {
-    console.log("Command canceled.");
-    rl.close();
+    console.log("❌ Command cancelled.");
   }
 }
 
