@@ -1,6 +1,6 @@
 {
   "name": "clai",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "AI powered CLI. One command to remember all commands.",
   "main": "clai.js",
   "type": "module",
@@ -16,7 +16,10 @@
   },
   "keywords": [
     "ai",
-    "cli"
+    "cli",
+    "shell",
+    "gpt",
+    "openrouter"
   ],
   "author": "silv3rh4t",
   "license": "MIT",

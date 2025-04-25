@@ -30,7 +30,7 @@ export async function help(){
           → Runs 'git push origin main'
     
     More:
-      Website: https://github.com/yourusername/clai
+      Website: https://github.com/silv3rh4t/clai
       Models:  https://openrouter.ai
     
     `);
