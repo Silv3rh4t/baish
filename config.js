@@ -1,3 +1,4 @@
+// config.js
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
@@ -19,7 +20,6 @@ function saveConfig(config) {
 
 export async function getApiKey(cliKey = null) {
   if (cliKey) return cliKey;
-
   const config = loadConfig();
   if (config.OPENROUTER_API_KEY) return config.OPENROUTER_API_KEY;
 
@@ -45,7 +45,7 @@ export function setDefaultModel(newModel) {
   const config = loadConfig();
   config.MODEL = newModel;
   saveConfig(config);
-  console.log(`✅ Default model set to "${newModel}"`);
+  console.log(`✅ Default model set to \"${newModel}\"`);
 }
 
 export function resetConfig() {
@@ -55,4 +55,17 @@ export function resetConfig() {
   } else {
     console.log("No config file found to delete.");
   }
+}
+
+export function saveAlias(name, command) {
+  const config = loadConfig();
+  config.ALIASES = config.ALIASES || {};
+  config.ALIASES[name] = command;
+  saveConfig(config);
+  console.log(`✅ Alias '${name}' saved.`);
+}
+
+export function getAlias(name) {
+  const config = loadConfig();
+  return config.ALIASES?.[name] || null;
 }
